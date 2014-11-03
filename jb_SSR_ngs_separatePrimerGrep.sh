@@ -29,26 +29,26 @@ while read line
         # Pipe in variables
         Fseq=$(echo $line | awk '{print $2}')
         Rseq_rev=$(echo $line | awk '{print $3}' | tr ACGT TGCA | rev)
-        Rseq=$(echo $line | awk '{print $3}')
-        Fseq_rev=$(echo $line | awk '{print $2}' | tr ACGT TGCA | rev)
+        #Rseq=$(echo $line | awk '{print $3}')
+        #Fseq_rev=$(echo $line | awk '{print $2}' | tr ACGT TGCA | rev)
         name=$(echo $line | awk '{print $1}')
-#       regex=$(echo $line | awk '{print $4}')
+        #regex=$(echo $line | awk '{print $4}')
 
         # Look for 100% matches in Forward direction and remove primer sequence
-        grep "^"$Fseq".*"$Rseq_rev"$" "$fname"_new.fa | \
-                sed -e "s/^$Fseq//g" -e "s/$Rseq_rev$//g"  >> "$fname"_"$name".seq.list
+        grep "^"$Fseq".*"$Rseq_rev"$"  "$fname"_new.fa | awk 'length($0) > 60'  >> "$fname"_"$name".seq.list
+                #sed -e "s/^$Fseq//g" -e "s/$Rseq_rev$//g"  >> "$fname"_"$name".seq.list
 
         # Give a summary of the number of files found
-        echo -e "\n"$name" Forward Reads" >> "$fname"_summary_list.txt
+        echo -e "\n" Sample "$name" >> "$fname"_summary_list.txt
         wc -l "$fname"_"$name".seq.list >> "$fname"_summary_list.txt
 
         # Look for 100% matches in Reverse direction and remove primer sequence
-        grep "^"$Rseq".*"$Fseq_rev"$" "$fname"_new.fa | \
-                sed -e "s/^$Rseq//g" -e "s/$Fseq_rev$//g" | tr ACGT TGCA | rev  >> "$fname"_"$name".seq.list
+        #grep "^"$Rseq".*"$Fseq_rev"$" "$fname"_new.fa | \
+        #       sed -e "s/^$Rseq//g" -e "s/$Fseq_rev$//g" | tr ACGT TGCA | rev  >> "$fname"_"$name".seq.list
 
         # Give a summary of the number of files found
-        echo -e "\nTotal Sequences for "$name" (including Reverse Reads)" >> "$fname"_summary_list.txt
-        wc -l "$fname"_"$name".seq.list >> "$fname"_summary_list.txt
+        #echo -e "\nTotal Sequences for "$name" (including Reverse Reads)" >> "$fname"_summary_list.txt
+        #wc -l "$fname"_"$name".seq.list >> "$fname"_summary_list.txt
 
        # Remove sequences that dont contain the SSR
 #       awk -v ref="$regex" 'match($0, ref) {print $0}' "$fname"_"$name".seq.list > "$fname"_"$name".seqflt.list
