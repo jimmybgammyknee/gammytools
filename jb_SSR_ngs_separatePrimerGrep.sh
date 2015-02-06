@@ -17,7 +17,7 @@ file=$1
 primers=$2
 fname=$(basename $file .fastq.gz)
 
-gammytools="/Users/jbreen/programs/gammytools"
+gammytools=/home/users/jbreen/personal_git/gammytools
 fqCon=$gammytools/jb_fastq2fasta.py
 plotH=$gammytools/jb_plot_histogram.py
 
@@ -58,7 +58,7 @@ while read line
         # Print fasta and align using clustal-omega
         #awk '/^/{print ">seq"(++i)}!/>/' "$fname"_"$name".seqflt.list > "$fname"_"$name".fasta
         awk '/^/{print ">seq"(++i)}!/>/' "$fname"_"$name".seq.list > "$fname"_"$name".fasta
-	clustal-omega-1.2.0-macosx -i "$fname"_"$name".fasta --output-order=tree-order | \
+	clustalo -i "$fname"_"$name".fasta --output-order=tree-order | \
                 awk '/^>/ {printf("\n%s\n",$0);next; } { printf("%s",$0);}  END {printf("\n");}' > "$fname"_"$name".aligned.fa
 
         # Make length histogram

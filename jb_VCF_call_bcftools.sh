@@ -3,7 +3,7 @@
 # Jimmy (jimmymbreen@gmail.com)	-	20150205
 # Call Variants using BCFtools from BAM file
 
-if [ "$#" != "3" ]; then
+if [ "$#" != "2" ]; then
         echo "Usage: jb_VCF_call_bcftools.sh [Reference] [BAM]"
         exit 0
 fi 
