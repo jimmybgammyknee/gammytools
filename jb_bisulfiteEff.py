@@ -15,9 +15,14 @@ import optparse
 samfile = ps.AlignmentFile('./sdy10LV_bismark_bt2_pe.sorted.bam')
 for pileupcolumn in samfile.pileup( 'chrCP' ):
 	for read in pileupcolumn.pileups:
-            aln = read.alignment
-            if pileupcolumn.nsegments == 10 and not read.indel and not read.is_del:
-				print ("%s Base Coverge > 10 is actuially %s" % (pileupcolumn.pos, pileupcolumn.n))
-			else:
-				print ("Coverage < 10")
+        if pileupcolumn.nsegments == 10 and not read.indel and not read.is_del:
+        	for aln in pileupcolumn.AlignedSegment:
+				if aln.is_reverse == False:
+					Cbase = (aln.query_sequence.count('T') + aln.query_sequence.count(','))
+					Cbfreq = (Cbase * 1.0 / len(aln.query_sequence)
+					print ("%s	%s" % (pileupcolumn.pos, Cbfreq)
+				elif aln.is_reverse == True:
+					Tbase = (aln.query_sequence.count('a') + aln.query_sequence.count('.'))
+					Tbfreq = (Cbase * 1.0 / len(aln.query_sequence)
+					print ("%s	%s" % (pileupcolumn.pos, Tbfreq)
 samfile.close()
