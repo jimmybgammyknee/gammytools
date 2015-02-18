@@ -14,8 +14,10 @@ import optparse
 
 samfile = ps.AlignmentFile('./sdy10LV_bismark_bt2_pe.sorted.bam')
 for pileupcolumn in samfile.pileup( 'chrCP' ):
-	if pileupcolumn.nsegments == 10:
-		print ("%s Base Coverge > 10 is actuially %s" % (pileupcolumn.pos, pileupcolumn.n))
-	else:
-		print ("Coverage < 10")
+	for read in pileupcolumn.pileups:
+            aln = read.alignment
+            if pileupcolumn.nsegments == 10 and not read.indel and not read.is_del:
+				print ("%s Base Coverge > 10 is actuially %s" % (pileupcolumn.pos, pileupcolumn.n))
+			else:
+				print ("Coverage < 10")
 samfile.close()
