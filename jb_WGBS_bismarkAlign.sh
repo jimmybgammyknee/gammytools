@@ -6,11 +6,13 @@
 
 # Load modules
 . /opt/shared/Modules/3.2.7/init/bash
-module load bowtie/2-2.1.0
+module load bowtie/2-2.2.3
 module load bismark
 module load picard/1.71
 module load python
 module load parallel
+module load SamTools/0.1.19
+module load perl
 
 if [ "$#" != "3" ]; then
         echo "Usage: jb_WGBS_align.sh [Data Directory] [Reference file directory] [num_of_threads]"
@@ -34,7 +36,7 @@ threads=$3
 
 # Run bismark alignment command in parallel
 parallel -j $threads 'bismark -p 4 --bowtie2 --score_min L,0,-0.6 -X 1000 --bam \
-	{1} -1 {2} -2 {3}' ::: $Refdir ::: $data/*_R1_001_val_1.fq.gz ::: $data/*_R2_001_val_2.fq.gz
+	{1} -1 {2} -2 {3}' ::: $Refdir ::: $data/*_R1_val_1.fq.gz ::: $data/*_R2_val_2.fq.gz
 wait 
 
 parallel -j $threads 'samtools sort {} - | samtools rmdup -S - {}.sorted.nodup.bam' ::: *_bismark_bt2_pe.bam
