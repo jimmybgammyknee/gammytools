@@ -6,11 +6,13 @@
 
 # Load modules
 . /opt/shared/Modules/3.2.7/init/bash
-module load bowtie/2-2.1.0
+module load bowtie/2-2.2.3
 module load bismark
 module load picard/1.71
 module load python
 module load parallel
+module load SamTools/0.1.19
+module load perl
 
 if [ "$#" != "3" ]; then
         echo "Usage: jb_WGBS_align.sh [Data Directory] [Reference file directory] [num_of_threads]"
