@@ -34,7 +34,7 @@ threads=$3
 
 # Run bismark alignment command in parallel
 parallel -j $threads 'bismark -p 4 --bowtie2 --score_min L,0,-0.6 -X 1000 --bam \
-	{1} -1 {2} -2 {3}' ::: $Refdir ::: $data/*_R1_001_val_1.fq.gz ::: $data/*_R2_001_val_2.fq.gz
+	{1} -1 {2} -2 {3}' ::: $Refdir ::: $data/*_R1_val_1.fq.gz ::: $data/*_R2_val_2.fq.gz
 wait 
 
 parallel -j $threads 'samtools sort {} - | samtools rmdup -S - {}.sorted.nodup.bam' ::: *_bismark_bt2_pe.bam
