@@ -3,7 +3,7 @@
 # Jimmy (jimmymbreen@gmail.com) -       20141118
 # Calls methylation counts from fastafile and BAM (for the Grapevine Methylome paper)
 
-if [ "$#" != "2" ]; then
+if [ "$#" != "3" ]; then
         echo "Usage: jb_MethylCall.sh [BAM] [Reference fasta] [BS reference dir ]"
         exit 0
 fi
