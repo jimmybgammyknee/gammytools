@@ -1,0 +1,31 @@
+#!/bin/bash -l
+
+# Run:
+# $ eigen_to_vcf.sh [data prefix]
+
+# Load eigensoft
+. /opt/shared/Modules/3.2.7/init/bash
+module load gsl 
+module load gnu
+module load eigensoft/6.0.1
+module load bx-python/0.7.2
+
+# Read in file prefix
+prefix=$1
+plink=/localscratch/Programs/plink-1.90/plink
+
+cat > ${PAR_FILE} <<__SCRIPT__
+genotypename:    ${prefix}.geno
+snpname:         ${prefix}.snp
+indivname:       ${prefix}.ind
+outputformat:    PED
+genotypeoutname: ${prefix}.ped
+snpoutname:      ${prefix}.map
+indivoutname:    ${prefix}.pedind
+__SCRIPT__
+
+# Use par file to convert geno/snp/ind to ped/map
+convertf -p "${PAR_FILE}"
+
+# Run plink_to_vcf
+$plink --file "${prefix}" --recode vcf --out "${prefix}"_plink2VCF
