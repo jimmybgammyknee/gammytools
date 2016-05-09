@@ -1,10 +1,10 @@
 #!/bin/bash -l
 
 # Jimmy (jimmymbreen@gmail.com) -       20150205
-# Call Variants using BCFtools from BAM file
+# Call Variants using BCFtools from BAM list
 
 if [ "$#" != "2" ]; then
-        echo "Usage: jb_VCF_call_bcftools.sh [Reference] [bam_list]"
+        echo "Usage: jb_VCF_call_bcftools_dir.sh [Reference] [bam_list]"
         exit 0
 fi 
 
@@ -16,6 +16,6 @@ module load samtools/1.2
 module load bcftools/1.2
 
 ref=$1
-bam=$2
+bamlist=$2
 
-samtools mpileup -R -ugf $ref -b $bam | bcftools call -vmO z -o $bam.vcf.gz
+samtools mpileup -R -ugf $ref -b $bamlist | bcftools call -vmO z -o $bamlist.vcf.gz

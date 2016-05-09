@@ -17,7 +17,7 @@ module load python/4.8.0/3.4.1
 FastaRef=$1
 
 # Progs
-fregex=/home/users/jbreen/bin/fastaRegexFinder.py
+fregex=$(which fastaRegexFinder.py)
 py34=/opt/shared/python/gcc4.8.0/3.4.1/bin/python3.4
 
 $py34 $fregex -f $FastaRef -r CG --noreverse |pigz -c > ${FastaRef%%.*}.allcpg.bed.gz 

@@ -1,4 +1,4 @@
-#!/usr/bin/python env
+#!/usr/bin/env python
 
 # Jimmy (jimmymbreen@gmail.com)	-	20141101
 # Take Reference Genome and create .genome file for bedtools
