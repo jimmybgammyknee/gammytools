@@ -15,7 +15,11 @@ module load htslib/1.2.1
 module load samtools/1.2
 module load bcftools/1.2
 
+<<<<<<< HEAD:jb_VCF_call_bcftools_dir.sh
 ref=$1
 bamlist=$2
 
 samtools mpileup -R -ugf $ref -b $bamlist | bcftools call -vmO z -o $bamlist.vcf.gz
+=======
+samtools mpileup -R -ugf $1 -b $2 | bcftools call -vmO z -o $(basename $2).vcf.gz
+>>>>>>> 53e335a6f7958274d065944c5d459c55e5242c7f:VCF_from_list_bcftools.sh

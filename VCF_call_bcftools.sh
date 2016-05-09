@@ -15,7 +15,5 @@ module load htslib/1.2.1
 module load samtools/1.2
 module load bcftools/1.2
 
-ref=$1
-bam=$2
 
-samtools mpileup -R -ugf $ref $bam | bcftools call -vmO z -o $bam.vcf.gz
+samtools mpileup -R -ugf $1 $2 | bcftools call -vmO z -o ${basename $1 .bam}_${basename $2}vcf.gz
