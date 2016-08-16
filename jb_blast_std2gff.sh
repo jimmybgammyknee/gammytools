@@ -10,4 +10,4 @@ fi
 
 stdin=$1
 
-awk '{print $1"\t"".""\t""blast""\t"$7"\t"$8"\t"".""\t""+""\t"".""\t""Parent="$2}' > ${stdin%%.*}.gff
+awk '{print $1"\t"".""\t""blast""\t"$7"\t"$8"\t"".""\t""+""\t"".""\t""Parent="$2}'  $stdin >  ${stdin%%.*}.gff

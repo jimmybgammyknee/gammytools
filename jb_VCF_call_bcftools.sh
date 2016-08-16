@@ -12,7 +12,7 @@ fi
 module load gnu/4.8.0
 module load zlib/1.2.8-gnu_4.8.0
 module load htslib/1.2.1
-module load samtools/1.2
+module load samtools/1.2 SamTools/1.2
 module load bcftools/1.2
 
 
