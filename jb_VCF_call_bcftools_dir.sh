@@ -13,9 +13,13 @@ module load gnu/4.8.0
 module load zlib/1.2.8-gnu_4.8.0
 module load htslib/1.2.1
 module load samtools/1.2
+module load SamTools/1.2
 module load bcftools/1.2
 
 ref=$1
-bam=$2
+dir=$2
 
-samtools mpileup -R -ugf $ref -b $bam | bcftools call -vmO z -o $bam.vcf.gz
+for bam in ./$dir/*.bam
+ do
+	samtools mpileup -R -ugf $ref -b $bam | bcftools call -vmO z -o $bam.vcf.gz
+done
