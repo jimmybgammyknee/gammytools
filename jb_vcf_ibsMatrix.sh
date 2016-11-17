@@ -5,7 +5,7 @@
 vcf=$1
 prefix=$2
 
-plink=$(which plink1.90)
+plink=$(which plink)
 
 $plink --vcf $vcf \
   --distance ibs \
