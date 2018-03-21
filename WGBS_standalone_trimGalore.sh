@@ -1,10 +1,12 @@
 #!/bin/bash -l
 
-# jimmymbreen@gmail.com	-	20141120
+# Jimmy Breen (jimmymbreen@gmail.com)
+# 2014-11-20
+
 # Trim BSseq data with trim_galore (6bp 5' and adapters)
 
 if [ "$#" != "2" ]; then
-        echo "Usage: set_bsRef.sh [R1] [R2]"
+        echo "Usage: $0 [R1] [R2]"
         exit 0
 fi
 
