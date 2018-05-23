@@ -21,13 +21,25 @@ outdir=${base}/macs2_diffPeaks_3rep
 mkdir -p ${outdir}
 
 macs2 bdgdiff -l 147 -g 73 \
-    --t1 $(basename $S1 .bam)_treat_pileup.bdg \
-    --t2 $(basename $S2 .bam)_treat_pileup.bdg \
-    --t3 $(basename $S3 .bam)_treat_pileup.bdg \
-    --c1 $(basename $S1 .bam)_control_lambda.bdg \
-    --c2 $(basename $S2 .bam)_control_lambda.bdg \
-    --c3 $(basename $S3 .bam)_control_lambda.bdg \
-    --o-prefix ${outdir}/3rep
+    --t1 $(basename $S1)_treat_pileup.bdg \
+    --t2 $(basename $S2)_treat_pileup.bdg \
+    --c1 $(basename $S1)_control_lambda.bdg \
+    --c2 $(basename $S2)_control_lambda.bdg \
+    --o-prefix ${outdir}/2rep1
 
-wc -l *.bed > bdgdiff.txt        # count the number of peaks in bdgdiff output
-wc -l *.broadPeak > numPeaks.txt # count number of peaks in original macs2 calls
+macs2 bdgdiff -l 147 -g 73 \
+    --t1 $(basename $S1)_treat_pileup.bdg \
+    --t2 $(basename $S3)_treat_pileup.bdg \
+    --c1 $(basename $S1)_control_lambda.bdg \
+    --c2 $(basename $S3)_control_lambda.bdg \
+    --o-prefix ${outdir}/2rep2
+
+macs2 bdgdiff -l 147 -g 73 \
+    --t1 $(basename $S2)_treat_pileup.bdg \
+    --t2 $(basename $S3)_treat_pileup.bdg \
+    --c1 $(basename $S2)_control_lambda.bdg \
+    --c2 $(basename $S3)_control_lambda.bdg \
+    --o-prefix ${outdir}/2rep3
+
+#wc -l *.bed > bdgdiff.txt        # count the number of peaks in bdgdiff output
+#wc -l *.broadPeak > numPeaks.txt # count number of peaks in original macs2 calls
