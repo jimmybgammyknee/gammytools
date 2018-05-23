@@ -23,12 +23,12 @@ if [ ! -e ${ref}.genome ]
 fi
 
 # Make 1kb windows of the whole genome fasta
-bedtools makewindows -g ${ref}.genome -w 1000 > ./$(basename ${ref}).1kb.windows
+bedtools makewindows -g ${ref}.genome -w 1000 | sortBed -i - > ./$(basename ${ref}).1kb.windows
 
 # Loops through all WGBS methylation bedGraph files and produce 1kb tiles of average methylation 
 for bg in ${dir}/*"${suff}"
  do
-	bedtools map -a ./$(basename ${ref}).1kb.windows -b ${bg} -c 4 -o mean > ${bg}.amc.1kb.windows
+	sortBed -i ${bg} | bedtools map -a ./$(basename ${ref}).1kb.windows -b - -c 4 -o mean > ${bg}.amc.1kb.windows
 done	
 
 # Merge all bedGraph 1kb window tiles and remove empty intervals
