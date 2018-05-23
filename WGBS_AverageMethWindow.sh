@@ -30,7 +30,7 @@ bedtools makewindows -g ${ref}.genome -w ${window} | awk -v w="${window}" '$3-$2
 # Loops through all WGBS methylation bedGraph files and produce 1kb tiles of average methylation 
 for bg in ${dir}/*"${suff}"
  do
-	bedtools map -a ./"${window}"_windows_out/$(basename ${ref})."${window}".windows -b ${bg} -c 4 -o mean > ./"${window}"_windows_out/${bg}.amc."${window}".windows
+	sortBed -i ${bg} | bedtools map -a ./"${window}"_windows_out/$(basename ${ref})."${window}".windows -b stdin -c 4 -o mean > ./"${window}"_windows_out/${bg}.amc."${window}".windows
 done	
 
 # Merge all bedGraph 1kb window tiles and remove empty intervals
